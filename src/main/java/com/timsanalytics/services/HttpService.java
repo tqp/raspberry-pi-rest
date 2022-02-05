@@ -8,9 +8,11 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Service
 public class HttpService {
     // REF: https://www.baeldung.com/httpclient-post-http-request
 
@@ -19,15 +21,15 @@ public class HttpService {
         httpService.executePostRequest();
     }
 
-    private void executePostRequest() throws IOException {
-//        String url = "https://server.timsanalytics.com/api/v1/raspberry/test";
-        String url = "http://localhost:5001/api/v1/raspberry/test";
+    public void executePostRequest() throws IOException {
+        String url = "https://server.timsanalytics.com/api/v1/raspberry/test";
+//        String url = "http://localhost:5001/api/v1/raspberry/test";
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
         KeyValueTimestamp<String, String> keyValueTimestamp = new KeyValueTimestamp<>("laptop", "success", System.currentTimeMillis());
         ObjectMapper objectMapper = new ObjectMapper();
         String objectStr = objectMapper.writeValueAsString(keyValueTimestamp);
-        StringEntity entity  = new StringEntity(objectStr);
+        StringEntity entity = new StringEntity(objectStr);
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
