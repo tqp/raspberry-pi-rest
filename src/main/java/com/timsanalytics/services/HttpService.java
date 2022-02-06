@@ -1,7 +1,7 @@
 package com.timsanalytics.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.timsanalytics.beans.KeyValueTimestamp;
+import com.timsanalytics.beans.DataSample;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -26,9 +26,9 @@ public class HttpService {
 //        String url = "http://localhost:5001/api/v1/raspberry/test";
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
-        KeyValueTimestamp<String, String> keyValueTimestamp = new KeyValueTimestamp<>("laptop", "success", System.currentTimeMillis());
+        DataSample<String, String> dataSample = new DataSample<>("test-device", "test-sample", "success", System.currentTimeMillis());
         ObjectMapper objectMapper = new ObjectMapper();
-        String objectStr = objectMapper.writeValueAsString(keyValueTimestamp);
+        String objectStr = objectMapper.writeValueAsString(dataSample);
         StringEntity entity = new StringEntity(objectStr);
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");

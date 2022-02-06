@@ -1,14 +1,24 @@
 package com.timsanalytics.beans;
 
-public class KeyValueTimestamp<K, V> {
+public class DataSample<K, V> {
+    private String device;
     private K key;
     private V value;
     private long timestamp;
 
-    public KeyValueTimestamp(K key, V value, long timestamp) {
+    public DataSample(String device, K key, V value, long timestamp) {
+        this.device = device;
         this.key = key;
         this.value = value;
         this.timestamp = timestamp;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
     }
 
     public K getKey() {
