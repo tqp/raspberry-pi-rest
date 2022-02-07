@@ -8,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -16,14 +17,15 @@ import java.io.IOException;
 public class HttpService {
     // REF: https://www.baeldung.com/httpclient-post-http-request
 
+    @Value("${api.url}")
+    private String url;
+
     public static void main(String[] args) throws IOException {
         HttpService httpService = new HttpService();
         httpService.executePostRequest();
     }
 
     public void executePostRequest() throws IOException {
-        String url = "https://server.timsanalytics.com/api/v1/raspberry/test";
-//        String url = "http://localhost:5001/api/v1/raspberry/test";
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
         DataSample<String, String> dataSample = new DataSample<>("test-device", "test-sample", "success", System.currentTimeMillis());
